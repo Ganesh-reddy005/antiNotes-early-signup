@@ -8,6 +8,7 @@ import FaqFooter from "@/components/FaqFooter";
 import ProductDemo from "@/components/ProductDemo";
 import CommunityPulse from "@/components/CommunityPulse";
 import BackgroundGraph from "@/components/BackgroundGraph";
+import { Analytics } from "@vercel/analytics/next"
 
 export default function Home() {
   return (
