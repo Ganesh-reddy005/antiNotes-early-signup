@@ -2,225 +2,263 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
-  Code2, 
-  MessageSquare, 
-  BarChart3, 
+  FileCode2, 
+  Bot, 
+  LineChart, 
   Play, 
   CheckCircle2, 
-  AlertTriangle, 
-  BookOpen,
-  ArrowUpRight,
-  XCircle,
-  User,
-  History,
-  BrainCircuit,
-  TrendingUp,
-  TrendingDown,
-  Calendar,
+  XCircle, 
+  Terminal,
+  Target,
   Zap,
-  Target
+  Calendar,
+  TrendingDown,
+  MoreHorizontal,
+  Info,
+  History
 } from "lucide-react";
 
 export default function ProductDemo() {
   const [activeTab, setActiveTab] = useState<"ide" | "agent" | "stats">("ide");
 
   return (
-    <section className="w-full max-w-7xl mx-auto px-6 py-24 bg-gray-50/50 border-y border-gray-100">
+    <section className="w-full max-w-7xl mx-auto px-4 md:px-6 py-16 md:py-24 border-y border-mistral-navy/5 bg-mistral-bg">
       
       {/* Header */}
-      <div className="text-center mb-12">
-        <h2 className="font-serif text-4xl text-gray-900 mb-4">
-          The <span className="text-indigo-600 italic">Antinotes</span> Workflow
+      <div className="text-center mb-8 md:mb-12">
+        <h2 className="font-serif text-3xl md:text-4xl text-mistral-navy mb-4">
+          The <span className="text-mistral-orange italic">Antinotes</span> Workflow
         </h2>
-        <p className="font-sans text-gray-500">
-          See how our Multi-Agent System personalizes your learning.
+        <p className="font-sans text-sm md:text-base text-mistral-navy/60">
+          From writing code to mastering logic. See how it works.
         </p>
       </div>
 
-      {/* The "App" Container */}
-      <div className="max-w-5xl mx-auto bg-white rounded-2xl shadow-2xl shadow-gray-200 overflow-hidden border border-gray-200 flex flex-col md:flex-row h-[700px]">
+      {/* The "App" Container (Glassmorphic) */}
+      {/* FIX: Changed h-auto to h-[850px] on mobile to prevent collapse */}
+      <div className="max-w-6xl mx-auto bg-white/60 backdrop-blur-xl rounded-2xl shadow-[0_20px_40px_-15px_rgba(15,23,42,0.1)] border border-mistral-navy/10 flex flex-col md:flex-row h-[850px] md:h-[700px] overflow-hidden">
         
         {/* --- SIDEBAR NAVIGATION --- */}
-        <div className="w-full md:w-64 bg-gray-50 border-r border-gray-100 flex flex-col p-4 gap-2">
-          {/* Window Controls */}
-          <div className="flex gap-2 mb-8 px-2">
-            <div className="w-3 h-3 rounded-full bg-red-400/80" />
-            <div className="w-3 h-3 rounded-full bg-yellow-400/80" />
-            <div className="w-3 h-3 rounded-full bg-green-400/80" />
+        <div className="w-full md:w-64 border-b md:border-b-0 md:border-r border-mistral-navy/5 flex flex-col p-4 gap-2 bg-mistral-navy/5 shrink-0 h-auto md:h-full z-20 relative">
+          
+          {/* BRANDED WINDOW CONTROLS */}
+          <div className="flex gap-4 items-center mb-4 md:mb-8 px-2 pt-2">
+            <div className="grid grid-cols-2 gap-1">
+              <div className="w-3 h-3 bg-[#0f172a] shadow-[1px_1px_0px_0px_rgba(0,0,0,0.2)]"></div>
+              <div className="w-3 h-3 bg-[#f97316] shadow-[1px_1px_0px_0px_rgba(0,0,0,0.2)]"></div>
+              <div className="w-3 h-3 bg-[#94a3b8] shadow-[1px_1px_0px_0px_rgba(0,0,0,0.2)]"></div>
+              <div className="w-3 h-3 bg-[#fce7f3] shadow-[1px_1px_0px_0px_rgba(0,0,0,0.2)]"></div>
+            </div>
+            <span className="font-mono text-xs font-bold text-mistral-navy/40 tracking-widest uppercase">
+              Antinotes_OS
+            </span>
           </div>
 
-          <button 
-            onClick={() => setActiveTab("ide")}
-            className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-all ${
-              activeTab === "ide" ? "bg-white shadow-sm text-indigo-600" : "text-gray-500 hover:bg-gray-100"
-            }`}
-          >
-            <Code2 className="w-4 h-4" />
-            1. The Problem
-          </button>
-          
-          <button 
-            onClick={() => setActiveTab("agent")}
-            className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-all ${
-              activeTab === "agent" ? "bg-white shadow-sm text-indigo-600" : "text-gray-500 hover:bg-gray-100"
-            }`}
-          >
-            <BrainCircuit className="w-4 h-4" />
-            2. AI Agent Review
-          </button>
-
-          <button 
-            onClick={() => setActiveTab("stats")}
-            className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-all ${
-              activeTab === "stats" ? "bg-white shadow-sm text-indigo-600" : "text-gray-500 hover:bg-gray-100"
-            }`}
-          >
-            <BarChart3 className="w-4 h-4" />
-            3. Growth Data
-          </button>
+          {/* Navigation Tabs */}
+          <div className="flex md:flex-col gap-2 overflow-x-auto md:overflow-visible pb-2 md:pb-0 scrollbar-hide">
+            {[
+              { id: "ide", icon: FileCode2, label: "1. The Problem" },
+              { id: "agent", icon: Bot, label: "2. Agent Review" },
+              { id: "stats", icon: LineChart, label: "3. Growth Data" },
+            ].map((tab) => (
+              <button 
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id as any)}
+                className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-all whitespace-nowrap ${
+                  activeTab === tab.id 
+                    ? "bg-white shadow-sm ring-1 ring-mistral-navy/5 text-mistral-navy border-b-4 md:border-b-0 md:border-l-4 border-mistral-orange" 
+                    : "text-mistral-navy/60 hover:bg-white/50 hover:text-mistral-navy"
+                }`}
+              >
+                <tab.icon className={`w-4 h-4 ${activeTab === tab.id ? "text-mistral-orange" : "text-current"}`} />
+                {tab.label}
+              </button>
+            ))}
+          </div>
         </div>
 
         {/* --- MAIN CONTENT AREA --- */}
-        <div className="flex-1 relative bg-white font-mono text-sm overflow-hidden">
+        {/* FIX: Flex-1 ensures it fills the remaining height of the 850px container */}
+        <div className="flex-1 relative bg-transparent font-mono text-sm overflow-hidden h-full">
           <AnimatePresence mode="wait">
             
             {/* VIEW 1: THE IDE */}
             {activeTab === "ide" && (
               <motion.div 
                 key="ide"
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -20 }}
-                className="absolute inset-0 flex flex-col"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="absolute inset-0 flex flex-col h-full"
               >
                 {/* Top Bar */}
-                <div className="h-12 border-b border-gray-100 flex items-center justify-between px-6 bg-white">
-                  <span className="text-gray-500">Problem: <b>Invert Binary Tree</b></span>
-                  <div 
-                    onClick={() => setActiveTab("agent")}
-                    className="flex items-center gap-2 text-green-600 bg-green-50 px-3 py-1 rounded-full text-xs cursor-pointer hover:bg-green-100 transition-colors"
-                  >
-                    <Play className="w-3 h-3 fill-current" /> Submit to Agent
+                <div className="h-12 border-b border-mistral-navy/5 flex items-center justify-between px-4 md:px-6 bg-white/40 shrink-0">
+                  <div className="flex items-center gap-2 text-mistral-navy/60">
+                    <Terminal className="w-4 h-4 text-mistral-orange" />
+                    <span className="font-sans font-medium text-xs md:text-sm truncate">Workspace // Invert_Binary_Tree</span>
                   </div>
+                  <button 
+                    onClick={() => setActiveTab("agent")}
+                    className="flex items-center gap-2 bg-mistral-navy hover:bg-mistral-navy/90 text-white px-3 md:px-4 py-1.5 text-xs font-bold transition-all shadow-[2px_2px_0px_0px_rgba(15,23,42,0.2)] active:shadow-none active:translate-y-[1px]"
+                  >
+                    <Play className="w-3 h-3 fill-current" /> Run_Check
+                  </button>
                 </div>
 
-                <div className="flex-1 flex overflow-hidden">
-                  {/* Problem Description */}
-                  <div className="w-1/3 border-r border-gray-100 p-6 bg-gray-50/30 prose prose-sm overflow-y-auto">
-                    <h4 className="text-gray-900 font-bold mb-4">Description</h4>
-                    <p className="text-gray-500 mb-4">Given the root of a binary tree, invert the tree, and return its root.</p>
-                    <div className="bg-gray-100 p-2 rounded mb-2 text-xs">Input: root = [4,2,7]</div>
-                    <div className="bg-gray-100 p-2 rounded text-xs">Output: [4,7,2]</div>
+                {/* Content */}
+                <div className="flex-1 flex flex-col md:flex-row h-full overflow-hidden">
+                  {/* LEFT: THE QUESTION */}
+                  <div className="w-full md:w-1/2 border-b md:border-b-0 md:border-r border-mistral-navy/5 bg-white/30 flex flex-col h-1/2 md:h-full">
+                    <div className="p-6 overflow-y-auto prose prose-sm max-w-none custom-scrollbar">
+                      <div className="flex justify-between items-start mb-4">
+                        <h4 className="text-xl md:text-2xl font-bold text-mistral-navy m-0 font-serif">Invert Binary Tree</h4>
+                        <span className="px-2 py-1 text-[10px] font-bold bg-mistral-orange/10 text-mistral-orange border border-mistral-orange/20 uppercase tracking-widest">
+                          Easy
+                        </span>
+                      </div>
+                      <p className="text-mistral-navy/70 leading-relaxed mb-4 font-sans text-sm md:text-base">
+                        Given the <code className="text-xs bg-mistral-navy/5 px-1 py-0.5 border border-mistral-navy/10 text-mistral-navy">root</code> of a binary tree, invert the tree, and return its root.
+                      </p>
+                    </div>
                   </div>
 
-                  {/* Code Editor */}
-                  <div className="flex-1 p-6 bg-[#0d1117] text-gray-300 overflow-y-auto">
-                    <div className="flex gap-4 mb-4 text-xs text-gray-500 font-sans">
-                      <span className="text-white border-b border-indigo-500">solution.py</span>
-                      <span>test_cases.py</span>
+                  {/* RIGHT: THE CODE EDITOR */}
+                  <div className="w-full md:w-1/2 bg-[#0f172a] flex flex-col text-[#e2e8f0] h-1/2 md:h-full">
+                    <div className="flex-1 p-4 overflow-y-auto font-mono text-xs md:text-sm leading-relaxed custom-scrollbar">
+                       <div className="flex">
+                        <div className="flex flex-col text-right pr-4 text-slate-600 select-none">
+                          {Array.from({length: 12}).map((_, i) => <span key={i}>{i+1}</span>)}
+                        </div>
+                        <div className="text-slate-300">
+                          <div><span className="text-purple-400">class</span> <span className="text-yellow-200">Solution</span>:</div>
+                          <div className="pl-4">
+                            <span className="text-blue-400">def</span> <span className="text-yellow-200">invertTree</span>(self, root):
+                          </div>
+                          <div className="pl-8 text-slate-500 italic"># Antinotes: Focus on Base Case</div>
+                          <div className="pl-8"><span className="text-purple-400">if not</span> root:</div>
+                          <div className="pl-12"><span className="text-purple-400">return</span> None</div>
+                          <div className="pl-8 mt-2 text-slate-500"># Swap children</div>
+                          <div className="pl-8">root.left, root.right = root.right, root.left</div>
+                        </div>
+                      </div>
                     </div>
-                    <code className="block space-y-1">
-                      <div className="text-purple-400">class Solution:</div>
-                      <div className="pl-4"><span className="text-blue-400">def</span> <span className="text-yellow-200">invertTree</span>(self, root):</div>
-                      <div className="pl-8 text-gray-500"># TODO: Write your logic here</div>
-                      <div className="pl-8"><span className="text-blue-400">if not</span> root:</div>
-                      <div className="pl-12"><span className="text-blue-400">return</span> None</div>
-                      <div className="pl-8">root.left, root.right = root.right, root.left</div>
-                      <div className="pl-8"><span className="text-blue-400">self</span>.invertTree(root.left)</div>
-                      <div className="pl-8"><span className="text-blue-400">self</span>.invertTree(root.right)</div>
-                      <div className="pl-8"><span className="text-blue-400">return</span> root</div>
-                    </code>
                   </div>
                 </div>
               </motion.div>
             )}
 
-            {/* VIEW 2: THE AGENT REVIEW */}
-            {activeTab === "agent" && (
+{/* VIEW 2: THE AGENT REVIEW */}
+{activeTab === "agent" && (
               <motion.div 
                 key="agent"
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -20 }}
-                className="absolute inset-0 bg-white flex flex-col overflow-y-auto"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="absolute inset-0 flex flex-col overflow-y-auto custom-scrollbar h-full"
               >
-                 {/* AGENT HEADER */}
-                 <div className="bg-slate-900 p-4 border-b border-gray-800 text-white">
-                    <div className="flex items-center gap-4 text-xs font-mono opacity-80 mb-2">
-                        <span className="flex items-center gap-1 text-blue-300"><User className="w-3 h-3" /> PROFILE AGENT: ACTIVE</span>
-                        <span className="text-gray-600">|</span>
-                        <span className="flex items-center gap-1 text-purple-300"><History className="w-3 h-3" /> BACKGROUND AGENT: LOADED</span>
+                 {/* DEMO BANNER */}
+                 <div className="bg-mistral-orange/10 border-b border-mistral-orange/20 py-2 px-4 flex items-center justify-center gap-2 shrink-0">
+                    <Info className="w-3 h-3 text-mistral-orange" />
+                    <span className="text-[10px] md:text-xs font-bold text-mistral-orange uppercase tracking-widest text-center">
+                        Interactive Demo Preview • Socratic Mode Active
+                    </span>
+                 </div>
+
+                 {/* AGENT HEADER: Visualizing the Multi-Agent Flow */}
+                 <div className="bg-[#0f172a] p-6 border-b border-slate-800 text-white shrink-0">
+                    
+                    {/* The Agent Pipeline Visualization */}
+                    <div className="flex flex-wrap items-center gap-2 text-[10px] md:text-xs font-mono text-slate-400 mb-4 uppercase tracking-widest">
+                        <span className="flex items-center gap-1.5 px-2 py-1 bg-white/5 rounded border border-white/5">
+                            <Bot className="w-3 h-3 text-emerald-400" /> Profile Agent
+                        </span>
+                        <span className="text-slate-600">→</span>
+                        <span className="flex items-center gap-1.5 px-2 py-1 bg-white/10 rounded text-white font-bold border border-mistral-orange/50 shadow-[0_0_10px_rgba(249,115,22,0.2)]">
+                            <Terminal className="w-3 h-3 text-mistral-orange" /> Reviewer
+                        </span>
+                        <span className="text-slate-600">→</span>
+                        <span className="flex items-center gap-1.5 px-2 py-1 bg-white/5 rounded border border-white/5">
+                            <History className="w-3 h-3 text-purple-400" /> Background
+                        </span>
                     </div>
+
                     <div className="flex justify-between items-end">
                          <div>
-                            <h3 className="text-lg font-serif">Reviewer Agent Analysis</h3>
-                            <p className="text-xs text-gray-400">Context: Student • Visual Learner • Weakness: Recursion</p>
+                            <h3 className="text-lg md:text-xl font-serif text-white">Code Review</h3>
+                            <p className="text-xs md:text-sm text-slate-400 mt-1">
+                                Context: <span className="text-slate-200">Production Engineering Path</span>
+                            </p>
                          </div>
                          <div className="text-right">
-                             <span className="text-2xl font-bold text-green-400">85/100</span>
-                             <p className="text-[10px] text-gray-500 uppercase tracking-wider">Logic Score</p>
+                             <span className="text-3xl md:text-4xl font-serif text-mistral-orange">85</span>
+                             <p className="text-[10px] text-slate-500 uppercase tracking-widest font-bold mt-1">Logic Score</p>
                          </div>
                     </div>
                  </div>
 
-                 <div className="p-8 space-y-6">
-                    {/* BACKGROUND INSIGHT */}
-                    <div className="bg-indigo-50 border border-indigo-100 rounded-lg p-3 flex gap-3 items-start">
-                        <BrainCircuit className="w-5 h-5 text-indigo-600 mt-1 shrink-0" />
-                        <div>
-                            <h4 className="text-xs font-bold text-indigo-900 uppercase tracking-wider mb-1">Background Agent Insight</h4>
-                            <p className="text-sm text-indigo-800 leading-snug">
-                                "Compared to your last submission on 'Tree Traversal', your understanding of <b>Recursion Base Cases</b> has improved significantly. You avoided the infinite loop error from last week."
-                            </p>
+                 <div className="p-6 md:p-8 space-y-6 bg-white/40">
+                    
+                    {/* 1. THE SOCRATIC AGENT (Questions, not answers) */}
+                    <div className="bg-white border border-mistral-navy/5 p-6 shadow-sm border-l-4 border-l-emerald-500">
+                        <div className="flex items-start gap-4">
+                            <div className="p-2 bg-emerald-50 rounded-lg shrink-0">
+                                <Bot className="w-5 h-5 text-emerald-600" />
+                            </div>
+                            <div>
+                                <h4 className="text-sm font-bold text-mistral-navy uppercase tracking-wider mb-2">
+                                    Socratic Inquiry
+                                </h4>
+                                <p className="text-sm text-mistral-navy/80 italic leading-relaxed">
+                                    "I noticed you used a recursive approach. If this code runs on a system with limited stack memory (like an embedded device) and the tree depth hits 10,000, <b>what happens to the application state?</b>"
+                                </p>
+                            </div>
                         </div>
                     </div>
 
-                    <div className="border-t border-gray-100 my-4" />
-
-                    {/* STRENGTHS */}
-                    <div>
-                        <h4 className="flex items-center gap-2 text-sm font-bold text-gray-900 uppercase tracking-wider mb-3">
-                            <CheckCircle2 className="w-4 h-4 text-green-500" /> What you did well
-                        </h4>
-                        <div className="bg-white border border-gray-200 rounded-lg p-4 text-sm text-gray-700 shadow-sm">
-                            <ul className="space-y-2">
-                                <li className="flex gap-2">
-                                    <span>•</span>
-                                    <span>Correct identification of the <b>Base Case</b> (<code className="text-xs bg-gray-100 px-1 rounded">if not root</code>).</span>
-                                </li>
-                                <li className="flex gap-2">
-                                    <span>•</span>
-                                    <span>Clean, Pythonic tuple unpacking for the swap operation.</span>
-                                </li>
-                            </ul>
+                    {/* 2. PRODUCTION CHAOS (Simulating Reality) */}
+                    <div className="bg-white border border-mistral-navy/5 p-6 shadow-sm border-l-4 border-l-mistral-orange">
+                         <div className="flex items-start gap-4">
+                            <div className="p-2 bg-orange-50 rounded-lg shrink-0">
+                                <Zap className="w-5 h-5 text-mistral-orange" />
+                            </div>
+                            <div>
+                                <h4 className="text-sm font-bold text-mistral-navy uppercase tracking-wider mb-3">
+                                    Production Chaos Simulation
+                                </h4>
+                                <div className="p-3 bg-mistral-navy/5 rounded border border-mistral-navy/10 mb-3 font-mono text-xs">
+                                    <div className="flex items-center gap-2 mb-1">
+                                        <span className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></span>
+                                        <span className="text-red-600 font-bold">ALERT:</span> 
+                                        <span className="text-mistral-navy">Data migration increased tree depth by 500%.</span>
+                                    </div>
+                                    <div className="text-slate-500 pl-4">
+                                        &gt; RecursionError: maximum recursion depth exceeded.
+                                    </div>
+                                </div>
+                                <p className="text-sm text-mistral-navy/70">
+                                    <b>New Requirement:</b> Refactor this to use an Iterative Approach (Queue) to handle the data spike without crashing.
+                                </p>
+                            </div>
                         </div>
                     </div>
 
-                    {/* ISSUES */}
-                    <div>
-                        <h4 className="flex items-center gap-2 text-sm font-bold text-gray-900 uppercase tracking-wider mb-3">
-                            <XCircle className="w-4 h-4 text-red-500" /> Problems in Code
-                        </h4>
-                        <div className="bg-red-50 border border-red-100 rounded-lg p-4 text-sm text-gray-700">
-                            <ul className="space-y-2">
-                                <li className="flex gap-2 items-start">
-                                    <span className="mt-1 text-red-400">•</span>
-                                    <span><b>Stack Overflow Risk:</b> On extremely deep trees, this recursive approach will hit the recursion limit.</span>
-                                </li>
-                            </ul>
+                    {/* 3. THINKING STYLE & SUMMARY */}
+                    <div className="bg-white border border-mistral-navy/5 p-6 shadow-sm">
+                        <div className="flex items-center gap-2 mb-4">
+                            <Target className="w-4 h-4 text-purple-500" />
+                            <h4 className="text-sm font-bold text-mistral-navy uppercase tracking-wider">
+                                Thinking Style Analysis
+                            </h4>
                         </div>
-                    </div>
-
-                    {/* SUGGESTION */}
-                    <div>
-                        <h4 className="flex items-center gap-2 text-sm font-bold text-gray-900 uppercase tracking-wider mb-3">
-                            <ArrowUpRight className="w-4 h-4 text-orange-500" /> Tutor Agent Recommendation
-                        </h4>
-                        <div className="bg-orange-50 border border-orange-100 rounded-lg p-4 text-sm text-gray-700">
-                             <p className="mb-2">Since your profile indicates you are preparing for <b>Production Engineering</b>, you should learn the Iterative approach to handle large-scale data.</p>
-                             <div className="text-xs font-mono bg-white p-2 rounded border border-orange-100 text-gray-500">
-                                 {`queue = collections.deque([root]) # Use BFS to save stack memory`}
-                             </div>
+                        <div className="grid md:grid-cols-2 gap-6">
+                            <div className="text-sm text-mistral-navy/80">
+                                <span className="block text-[10px] font-bold text-emerald-600 mb-1 uppercase">Observed Strength</span>
+                                <p>You prioritize readability. Your base cases are clean and handle edge cases (null roots) well.</p>
+                            </div>
+                            <div className="text-sm text-mistral-navy/80">
+                                <span className="block text-[10px] font-bold text-mistral-orange mb-1 uppercase">Blind Spot</span>
+                                <p>You default to <b>Recursive Patterns</b> even when constraints suggest high-scale data. We will practice 3 Iterative problems next.</p>
+                            </div>
                         </div>
                     </div>
 
@@ -228,159 +266,85 @@ export default function ProductDemo() {
               </motion.div>
             )}
 
-            {/* VIEW 3: GROWTH STATS (UPDATED DASHBOARD) */}
+            {/* VIEW 3: GROWTH STATS */}
             {activeTab === "stats" && (
               <motion.div 
                 key="stats"
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -20 }}
-                className="absolute inset-0 bg-white p-8 overflow-y-auto"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="absolute inset-0 p-6 md:p-8 overflow-y-auto custom-scrollbar h-full"
               >
-                 {/* DASHBOARD HEADER */}
-                 <div className="flex justify-between items-end mb-8">
+                 {/* Header */}
+                 <div className="flex justify-between items-end mb-8 pb-6 border-b border-mistral-navy/10">
                      <div>
-                        <h3 className="font-serif text-2xl text-gray-900">Engineering Profile</h3>
-                        <p className="text-xs text-gray-400 font-mono mt-1 uppercase">Generated by Background Agent</p>
-                     </div>
-                     <div className="flex items-center gap-2 text-xs font-medium text-gray-500 bg-gray-50 px-3 py-1 rounded-full border border-gray-100">
-                        <History className="w-3 h-3" /> Last Updated: Just now
+                        <h3 className="font-serif text-2xl text-mistral-navy">Engineering Profile</h3>
+                        <p className="text-xs text-mistral-navy/40 font-mono mt-1 uppercase tracking-wide">Generated by Background Agent</p>
                      </div>
                  </div>
 
-                 {/* TOP METRICS */}
-                 <div className="grid grid-cols-3 gap-4 mb-8">
-                    {/* Metric 1 */}
-                    <div className="p-4 rounded-xl border border-gray-100 bg-white shadow-sm">
-                        <div className="flex items-center gap-2 text-gray-500 mb-2 text-xs uppercase tracking-wider">
-                            <Target className="w-3 h-3" /> Logic Elo
+                 {/* Metrics */}
+                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 mb-10">
+                    {[
+                        { icon: Target, label: "Logic Elo", value: "1,450", change: "+12", trend: "up" },
+                        { icon: Zap, label: "Retention", value: "94%", change: "stable", trend: "flat" },
+                        { icon: Calendar, label: "Streak", value: "12 Days", change: "Best", trend: "up" }
+                    ].map((metric, i) => (
+                        <div key={i} className="p-5 bg-white border border-mistral-navy/5 shadow-sm flex items-center justify-between md:block">
+                            <div>
+                                <div className="flex items-center gap-2 text-mistral-navy/40 mb-1 md:mb-3 text-[10px] uppercase tracking-widest font-bold">
+                                    <metric.icon className="w-3 h-3" /> {metric.label}
+                                </div>
+                                <span className="text-2xl md:text-3xl font-serif text-mistral-navy">{metric.value}</span>
+                            </div>
+                            
+                            {metric.trend === "up" && (
+                                <div className="text-xs text-emerald-600 bg-emerald-50 px-2 py-1 border border-emerald-100 font-mono">
+                                    {metric.change}
+                                </div>
+                            )}
                         </div>
-                        <div className="flex items-end gap-2">
-                            <span className="text-2xl font-bold text-gray-900">1,450</span>
-                            <span className="text-xs text-green-600 font-medium flex items-center mb-1">
-                                <TrendingUp className="w-3 h-3 mr-0.5" /> +12
-                            </span>
-                        </div>
-                    </div>
-                    {/* Metric 2 */}
-                    <div className="p-4 rounded-xl border border-gray-100 bg-white shadow-sm">
-                        <div className="flex items-center gap-2 text-gray-500 mb-2 text-xs uppercase tracking-wider">
-                            <Zap className="w-3 h-3" /> Retention Rate
-                        </div>
-                        <div className="flex items-end gap-2">
-                            <span className="text-2xl font-bold text-gray-900">94%</span>
-                            <span className="text-xs text-gray-400 font-medium mb-1">all time</span>
-                        </div>
-                    </div>
-                     {/* Metric 3 */}
-                     <div className="p-4 rounded-xl border border-gray-100 bg-white shadow-sm">
-                        <div className="flex items-center gap-2 text-gray-500 mb-2 text-xs uppercase tracking-wider">
-                            <Calendar className="w-3 h-3" /> Streak
-                        </div>
-                        <div className="flex items-end gap-2">
-                            <span className="text-2xl font-bold text-gray-900">12</span>
-                            <span className="text-xs text-gray-400 font-medium mb-1">days</span>
-                        </div>
-                    </div>
+                    ))}
                  </div>
 
                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                     
-                     {/* LEFT COLUMN: ADAPTIVE ANALYSIS */}
+                     {/* Adaptive Analysis */}
                      <div className="space-y-6">
-                        <h4 className="font-serif text-lg text-gray-900 border-b border-gray-100 pb-2">Adaptive Analysis</h4>
+                        <h4 className="flex items-center gap-2 font-serif text-lg text-mistral-navy">
+                           <MoreHorizontal className="w-4 h-4 text-mistral-orange" /> Adaptive Analysis
+                        </h4>
                         
-                        {/* Weakness Card */}
-                        <div className="group p-5 border border-red-100 bg-red-50/30 rounded-xl hover:border-red-200 transition-colors">
+                        <div className="group p-5 bg-white border border-l-4 border-l-mistral-orange border-y-mistral-navy/5 border-r-mistral-navy/5 shadow-sm">
                             <div className="flex justify-between items-start mb-3">
-                                <div>
-                                    <span className="text-xs font-bold text-red-600 bg-red-100 px-2 py-0.5 rounded uppercase">Critical Weakness</span>
-                                    <h5 className="font-medium text-red-900 mt-1">Graph Traversal (DFS/BFS)</h5>
-                                </div>
-                                <div className="p-2 bg-white rounded-lg shadow-sm">
-                                    <TrendingDown className="w-4 h-4 text-red-500" />
-                                </div>
+                                <span className="text-[10px] font-bold text-mistral-orange bg-mistral-orange/10 px-2 py-1 uppercase tracking-wide">
+                                    Critical Weakness
+                                </span>
+                                <TrendingDown className="w-4 h-4 text-mistral-orange" />
                             </div>
-                            <p className="text-xs text-gray-600 mb-3 leading-relaxed">
-                                <b>Why:</b> You struggled with "Cycle Detection" in 3 recent problems. You tend to forget the <code className="bg-white px-1 rounded border border-red-100">visited</code> set logic.
-                            </p>
-                            <button className="w-full py-2 bg-white border border-red-200 text-red-700 text-xs font-medium rounded-lg hover:bg-red-50 transition-colors">
-                                Start Recovery Session (5 Problems)
-                            </button>
-                        </div>
-
-                        {/* Strength Card */}
-                        <div className="p-5 border border-green-100 bg-green-50/30 rounded-xl">
-                            <div className="flex justify-between items-start mb-3">
-                                <div>
-                                    <span className="text-xs font-bold text-green-600 bg-green-100 px-2 py-0.5 rounded uppercase">Top Strength</span>
-                                    <h5 className="font-medium text-green-900 mt-1">Dynamic Programming (1D)</h5>
-                                </div>
-                                <div className="p-2 bg-white rounded-lg shadow-sm">
-                                    <TrendingUp className="w-4 h-4 text-green-500" />
-                                </div>
-                            </div>
-                            <p className="text-xs text-gray-600 leading-relaxed">
-                                <b>Why:</b> Your space complexity has been optimal (O(1)) in the last 4 submissions. You have mastered the "sliding window" pattern.
+                            <h5 className="font-bold text-mistral-navy mt-2 text-sm">Graph Traversal</h5>
+                            <p className="text-xs text-mistral-navy/60 mt-2 mb-4 leading-relaxed">
+                                Struggled with "Cycle Detection" recently.
                             </p>
                         </div>
                      </div>
 
-                     {/* RIGHT COLUMN: REVISION QUEUE */}
-                     <div>
-                        <h4 className="font-serif text-lg text-gray-900 border-b border-gray-100 pb-2 mb-6">Memory Queue</h4>
+                     {/* Memory Queue */}
+                     <div className="pb-8">
+                        <h4 className="flex items-center gap-2 font-serif text-lg text-mistral-navy mb-6">
+                           <History className="w-4 h-4 text-mistral-navy/40" /> Memory Queue
+                        </h4>
                         
-                        <div className="space-y-4">
-                            {/* Queue Item 1 */}
-                            <div className="p-4 bg-white border border-gray-100 rounded-xl shadow-sm hover:shadow-md transition-shadow">
-                                <div className="flex justify-between items-center mb-2">
-                                    <span className="text-sm font-medium text-gray-700">LRU Cache Design</span>
-                                    <span className="text-[10px] font-bold text-orange-500 bg-orange-50 px-2 py-1 rounded border border-orange-100">FORGETTING SOON</span>
+                        <div className="space-y-3">
+                            <div className="p-4 bg-white border border-mistral-navy/10 flex flex-col gap-3 shadow-sm">
+                                <div className="flex justify-between items-center">
+                                    <span className="text-sm font-bold text-mistral-navy">LRU Cache Design</span>
+                                    <span className="text-[10px] font-bold text-mistral-orange border border-mistral-orange/20 px-2 py-1 uppercase">Forgetting Soon</span>
                                 </div>
-                                <div className="flex items-center gap-3">
-                                    <div className="flex-1 h-1.5 bg-gray-100 rounded-full overflow-hidden">
-                                        <div className="h-full bg-orange-400 w-[20%] rounded-full" />
-                                    </div>
-                                    <span className="text-xs text-gray-400 font-mono">20% Memory</span>
-                                </div>
-                            </div>
-
-                            {/* Queue Item 2 */}
-                            <div className="p-4 bg-white border border-gray-100 rounded-xl shadow-sm hover:shadow-md transition-shadow">
-                                <div className="flex justify-between items-center mb-2">
-                                    <span className="text-sm font-medium text-gray-700">Merge K Lists</span>
-                                    <span className="text-[10px] font-bold text-yellow-600 bg-yellow-50 px-2 py-1 rounded border border-yellow-100">REVIEW TOMORROW</span>
-                                </div>
-                                <div className="flex items-center gap-3">
-                                    <div className="flex-1 h-1.5 bg-gray-100 rounded-full overflow-hidden">
-                                        <div className="h-full bg-yellow-400 w-[45%] rounded-full" />
-                                    </div>
-                                    <span className="text-xs text-gray-400 font-mono">45% Memory</span>
-                                </div>
-                            </div>
-
-                            {/* Queue Item 3 */}
-                            <div className="p-4 bg-gray-50 border border-gray-100 rounded-xl opacity-70">
-                                <div className="flex justify-between items-center mb-2">
-                                    <span className="text-sm font-medium text-gray-500">Trie Implementation</span>
-                                    <span className="text-[10px] font-medium text-green-600 bg-green-50 px-2 py-1 rounded border border-green-100">HEALTHY</span>
-                                </div>
-                                <div className="flex items-center gap-3">
-                                    <div className="flex-1 h-1.5 bg-gray-200 rounded-full overflow-hidden">
-                                        <div className="h-full bg-green-500 w-[90%] rounded-full" />
-                                    </div>
-                                    <span className="text-xs text-gray-400 font-mono">90% Memory</span>
+                                <div className="w-full h-1.5 bg-mistral-navy/5 overflow-hidden">
+                                     <div className="h-full bg-mistral-orange w-[20%]" />
                                 </div>
                             </div>
                         </div>
-                        
-                        <div className="mt-6 p-4 bg-indigo-50 rounded-xl flex gap-3 items-center">
-                            <BookOpen className="w-4 h-4 text-indigo-600" />
-                            <p className="text-xs text-indigo-800">
-                                <b>Tip:</b> Reviewing "LRU Cache" today will boost your retention by 300%.
-                            </p>
-                        </div>
-
                      </div>
                  </div>
               </motion.div>

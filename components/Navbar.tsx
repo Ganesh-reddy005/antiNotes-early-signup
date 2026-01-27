@@ -6,7 +6,6 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const { scrollY } = useScroll();
 
-  // Detect scroll to trigger the "Glossy Capsule" effect
   useMotionValueEvent(scrollY, "change", (latest) => {
     setScrolled(latest > 50);
   });
@@ -14,7 +13,9 @@ export default function Navbar() {
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      // Offset matches the fixed navbar height so content isn't hidden
+      const y = element.getBoundingClientRect().top + window.scrollY - 100;
+      window.scrollTo({ top: y, behavior: 'smooth' });
     }
   };
 
@@ -29,40 +30,48 @@ export default function Navbar() {
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.5 }}
         className={`
-           relative px-6 py-3 rounded-full flex items-center justify-between transition-all duration-300
+           relative px-4 py-3 flex items-center justify-between transition-all duration-300 border
            ${scrolled
-             ? "bg-white/70 backdrop-blur-xl border border-white/20 shadow-lg shadow-black/5 w-auto min-w-[320px] gap-8"
-             : "bg-transparent w-full max-w-7xl gap-12"
+             ? "bg-white/50 backdrop-blur-md border-mistral-navy/10 rounded-full shadow-sm w-auto min-w-[320px] gap-8"
+             : "bg-transparent border-transparent w-full max-w-7xl gap-12 rounded-none"
            }
         `}
       >
-        {/* Logo */}
-        <span 
-          onClick={() => scrollToSection('hero')}
-          className="font-serif text-xl font-bold tracking-tight text-gray-900 cursor-pointer"
+        {/* LOGO (Scrolls to Top) */}
+        <div 
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          className="flex items-center gap-2 cursor-pointer group"
         >
-          Antinotes.
-        </span>
-
-        {/* Links (Hidden on small mobile) */}
-        <div className={`hidden md:flex items-center gap-6 text-sm font-sans text-gray-500 font-medium ${scrolled ? '' : 'ml-auto mr-4'}`}>
-           <button onClick={() => scrollToSection('demo')} className="hover:text-indigo-600 transition-colors">
-             Demo
-           </button>
-           <button onClick={() => scrollToSection('methodology')} className="hover:text-indigo-600 transition-colors">
-             Methodology
-           </button>
-           <button onClick={() => scrollToSection('features')} className="hover:text-indigo-600 transition-colors">
-             Features
-           </button>
+          <div className="grid grid-cols-2 gap-0.5">
+            <div className="w-1.5 h-1.5 bg-[#0f172a]"></div>
+            <div className="w-1.5 h-1.5 bg-[#f97316]"></div>
+            <div className="w-1.5 h-1.5 bg-[#94a3b8]"></div>
+            <div className="w-1.5 h-1.5 bg-[#fce7f3]"></div>
+          </div>
+          <span className="font-serif text-xl font-bold tracking-tight text-mistral-navy">
+            AntiNotes<span className="text-mistral-orange">.</span>
+          </span>
         </div>
 
-        {/* CTA Button */}
+        {/* LINKS (Added 'Roadmap') */}
+        <div className={`hidden md:flex items-center gap-6 text-sm font-sans text-mistral-navy/60 font-medium ${scrolled ? '' : 'ml-auto mr-4'}`}>
+           {['Demo', 'Features', 'Roadmap', 'FAQ'].map((item) => (
+             <button 
+               key={item}
+               onClick={() => scrollToSection(item.toLowerCase())} 
+               className="hover:text-mistral-navy hover:underline decoration-mistral-orange decoration-2 underline-offset-4 transition-all"
+             >
+               {item}
+             </button>
+           ))}
+        </div>
+
+        {/* CTA BUTTON */}
         <button 
           onClick={() => scrollToSection('hero')} 
-          className="px-5 py-2 rounded-full bg-gray-900 text-white text-xs font-medium hover:bg-gray-800 transition-all shadow-md active:scale-95"
+          className="px-5 py-2 bg-mistral-navy text-white text-xs font-mono border border-mistral-navy hover:bg-transparent hover:text-mistral-navy transition-all shadow-[2px_2px_0px_0px_rgba(15,23,42,1)] active:shadow-none active:translate-x-[2px] active:translate-y-[2px]"
         >
-          Get Early Access
+          Get_Access
         </button>
       </motion.nav>
     </div>
